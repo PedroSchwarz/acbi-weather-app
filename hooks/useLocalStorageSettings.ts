@@ -37,7 +37,7 @@ export const useLocalStorageSettings = () => {
     useEffect(() => {
         const loadSettings = async () => {
             try {
-                const storedSettings = await AsyncStorage.getItem(STORAGE_KEY) ?? TextSize.Normal;
+                const storedSettings = await AsyncStorage.getItem(STORAGE_KEY) ?? JSON.stringify(DEFAULT_SETTINGS);
                 if (storedSettings) {
                     setSettings(JSON.parse(storedSettings));
                 }
