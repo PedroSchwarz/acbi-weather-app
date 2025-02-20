@@ -1,6 +1,9 @@
 import { Text, type TextProps, StyleSheet } from 'react-native';
 
 import { useThemeColor } from '@/hooks/useThemeColor';
+import { useSettings } from '@/contexts/SettingsContext';
+import { useMemo } from 'react';
+import { TextSize } from '@/hooks/useLocalStorageSettings';
 
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
@@ -16,16 +19,22 @@ export function ThemedText({
   ...rest
 }: ThemedTextProps) {
   const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
+  const { settings: { textSize } } = useSettings();
+
+  const textScale = useMemo(() => {
+    return textSize === TextSize.Large ? 1.1 : textSize === TextSize.ExtraLarge ? 1.2 : 1;
+  }, [textSize]);
+
+  const textStyle = useMemo(() => {
+    return styles[type] ?? styles.default;
+  }, [type]);
 
   return (
     <Text
       style={[
         { color },
-        type === 'default' ? styles.default : undefined,
-        type === 'title' ? styles.title : undefined,
-        type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
-        type === 'subtitle' ? styles.subtitle : undefined,
-        type === 'link' ? styles.link : undefined,
+        textStyle,
+        { fontSize: textStyle.fontSize * textScale },
         style,
       ]}
       {...rest}

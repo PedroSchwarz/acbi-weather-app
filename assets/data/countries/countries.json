@@ -1,0 +1,132 @@
+[
+    {
+        "country": "United States",
+        "cities": [
+            {
+                "name": "New York",
+                "country": "United States"
+            },
+            {
+                "name": "Los Angeles",
+                "country": "United States"
+            }
+        ]
+    },
+    {
+        "country": "Canada",
+        "cities": [
+            {
+                "name": "Toronto",
+                "country": "Canada"
+            },
+            {
+                "name": "Vancouver",
+                "country": "Canada"
+            }
+        ]
+    },
+    {
+        "country": "Brazil",
+        "cities": [
+            {
+                "name": "São Paulo",
+                "country": "Brazil"
+            },
+            {
+                "name": "Rio de Janeiro",
+                "country": "Brazil"
+            }
+        ]
+    },
+    {
+        "country": "United Kingdom",
+        "cities": [
+            {
+                "name": "London",
+                "country": "United Kingdom"
+            },
+            {
+                "name": "Manchester",
+                "country": "United Kingdom"
+            }
+        ]
+    },
+    {
+        "country": "Germany",
+        "cities": [
+            {
+                "name": "Berlin",
+                "country": "Germany"
+            },
+            {
+                "name": "Munich",
+                "country": "Germany"
+            }
+        ]
+    },
+    {
+        "country": "Australia",
+        "cities": [
+            {
+                "name": "Sydney",
+                "country": "Australia"
+            },
+            {
+                "name": "Melbourne",
+                "country": "Australia"
+            }
+        ]
+    },
+    {
+        "country": "India",
+        "cities": [
+            {
+                "name": "Mumbai",
+                "country": "India"
+            },
+            {
+                "name": "Delhi",
+                "country": "India"
+            }
+        ]
+    },
+    {
+        "country": "Japan",
+        "cities": [
+            {
+                "name": "Tokyo",
+                "country": "Japan"
+            },
+            {
+                "name": "Osaka",
+                "country": "Japan"
+            }
+        ]
+    },
+    {
+        "country": "France",
+        "cities": [
+            {
+                "name": "Paris",
+                "country": "France"
+            },
+            {
+                "name": "Lyon",
+                "country": "France"
+            }
+        ]
+    },
+    {
+        "country": "South Africa",
+        "cities": [
+            {
+                "name": "Cape Town",
+                "country": "South Africa"
+            },
+            {
+                "name": "Johannesburg",
+                "country": "South Africa"
+            }
+        ]
+    }
+]
