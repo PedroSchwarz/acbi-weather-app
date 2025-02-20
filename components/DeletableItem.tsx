@@ -1,7 +1,7 @@
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import React from 'react';
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Alert } from 'react-native';
 import { Gesture, GestureDetector, RectButton } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
@@ -28,10 +28,31 @@ const DeletableItem: React.FC<DeletableItemProps> = ({ children, onDelete }) => 
         transform: [{ translateX: withTiming(translateX.value) }],
     }));
 
+    const showAlert = () => Alert.alert(
+        'Delete Item',
+        'Are you sure you want to delete this item?',
+        [
+            {
+                text: 'Cancel',
+                style: 'cancel',
+                onPress: () => {
+                    translateX.value = withTiming(0);
+                }
+            },
+            {
+                text: 'Delete',
+                style: 'destructive',
+                onPress: () => {
+                    onDelete();
+                }
+            },
+        ],
+    );
+
     return (
         <GestureDetector gesture={panGesture}>
             <ThemedView>
-                <RectButton style={[styles.hiddenButtons, styles.deleteButton]} onPress={onDelete}>
+                <RectButton style={[styles.hiddenButtons, styles.deleteButton]} onPress={showAlert}>
                     <ThemedText style={styles.deleteText}>Delete</ThemedText>
                 </RectButton>
 

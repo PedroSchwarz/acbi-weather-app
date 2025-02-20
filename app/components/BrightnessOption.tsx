@@ -1,10 +1,12 @@
 import { ThemedText } from "@/components/ThemedText";
 import { useSystemBrightness } from "@/hooks/useSystemBrightness";
+import { useThemeColor } from "@/hooks/useThemeColor";
 import Slider from "@react-native-community/slider";
 import React from "react";
 
 export default function BrightnessOption() {
     const { brightness, changeBrightness } = useSystemBrightness();
+    const accent = useThemeColor({}, 'accent');
 
     return (
         <>
@@ -15,9 +17,9 @@ export default function BrightnessOption() {
                 step={0.01}
                 value={brightness}
                 onValueChange={changeBrightness}
-                minimumTrackTintColor="#007AFF"
+                minimumTrackTintColor={accent}
                 maximumTrackTintColor="#d3d3d3"
-                thumbTintColor="#007AFF"
+                thumbTintColor={accent}
             />
         </>
     );

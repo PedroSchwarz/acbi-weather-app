@@ -10,11 +10,15 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 import { ThemedText } from '@/components/ThemedText';
 import { Orientation, useDeviceOrientation } from '@/hooks/useDeviceOrientation';
+import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useThemeColor } from '@/hooks/useThemeColor';
 
 export default function WeatherListScreen() {
     const { checkedItems, toggleItem } = useCities();
     const orientation = useDeviceOrientation();
     const [cities, setCities] = useState<City[]>([]);
+    const background = useThemeColor({}, 'background');
+    const accent = useThemeColor({}, 'accent');
     const router = useRouter();
 
     useEffect(() => { setCities(Object.values(checkedItems)) }, [checkedItems]);
@@ -29,50 +33,55 @@ export default function WeatherListScreen() {
                     title: 'Weather',
                     headerRight: () => (
                         <Pressable onPress={() => router.push('/citiesList')}>
-                            <Ionicons name="add" size={24} color="blue" />
+                            <Ionicons name="add" size={24} color={accent} />
                         </Pressable>
                     ),
                     headerLeft: () => (
                         <Pressable onPress={() => router.push('/settings')}>
-                            <Ionicons name="cog" size={24} color="black" />
+                            <Ionicons name="cog" size={24} color={accent} />
                         </Pressable>
                     ),
+                    headerTransparent: true,
                 }}
             />
 
-            <GestureHandlerRootView style={{ flex: 1 }}>
-                <ThemedView style={[isLandscape ? styles.landscapeContainer : styles.container]}>
-                    {
-                        isLandscape &&
-                        (
-                            <ThemedView style={styles.landscapeHeader}>
-                                <ThemedText type='subtitle'>Weather Time</ThemedText>
-                                <Button mode="elevated" onPress={() => router.push('/citiesList')}>
-                                    <ThemedText>Add City</ThemedText>
-                                </Button>
-                                <Button mode="elevated" onPress={() => router.push('/settings')}>
-                                    <ThemedText>Settings</ThemedText>
-                                </Button>
-                            </ThemedView>
-                        )
-                    }
-                    <FlatList
-                        data={cities}
-                        renderItem={({ item }) => <WeatherItem {...item} onDelete={() => toggleItem(item)} />}
-                        keyExtractor={(item, index) => item.name + index}
-                        ItemSeparatorComponent={(_) => <Divider />}
-                        ListEmptyComponent={() => (
-                            <ThemedView style={styles.emptyContentContainer}>
-                                <ThemedText type='subtitle'>Welcome to Weather Time!</ThemedText>
-                                <ThemedText style={styles.emptyContentText}>Press <Ionicons name="add" size={20} color="blue" /> to add cities from around the world to view their date, time and weather.</ThemedText>
-                                <ThemedText style={styles.emptyContentText}>Press <Ionicons name="cog" size={20} color="black" /> for settings. Settings enables the user to select unit of temperature, text size, sound effect and brigthness.</ThemedText>
-                            </ThemedView>
-                        )}
-                    />
+            <SafeAreaProvider>
+                <SafeAreaView style={{ flex: 1, backgroundColor: background }}>
+                    <GestureHandlerRootView>
+                        <ThemedView style={[isLandscape ? styles.landscapeContainer : styles.container]}>
+                            {
+                                isLandscape &&
+                                (
+                                    <ThemedView style={styles.landscapeHeader}>
+                                        <ThemedText type='subtitle'>Weather Time</ThemedText>
+                                        <Button contentStyle={{ backgroundColor: background }} mode="outlined" onPress={() => router.push('/citiesList')}>
+                                            <ThemedText>Add City</ThemedText>
+                                        </Button>
+                                        <Button contentStyle={{ backgroundColor: background }} mode="outlined" onPress={() => router.push('/settings')}>
+                                            <ThemedText>Settings</ThemedText>
+                                        </Button>
+                                    </ThemedView>
+                                )
+                            }
+                            <FlatList
+                                data={cities}
+                                renderItem={({ item }) => <WeatherItem {...item} onDelete={() => toggleItem(item)} />}
+                                keyExtractor={(item, index) => item.name + index}
+                                ItemSeparatorComponent={(_) => <Divider />}
+                                ListEmptyComponent={() => (
+                                    <ThemedView style={styles.emptyContentContainer}>
+                                        <ThemedText type='subtitle'>Welcome to Weather Time!</ThemedText>
+                                        <ThemedText style={styles.emptyContentText}>Press <Ionicons name="add" size={20} color={accent} /> to add cities from around the world to view their date, time and weather.</ThemedText>
+                                        <ThemedText style={styles.emptyContentText}>Press <Ionicons name="cog" size={20} color={accent} /> for settings. Settings enables the user to select unit of temperature, text size, sound effect and brigthness.</ThemedText>
+                                    </ThemedView>
+                                )}
+                            />
 
-                    <ThemedView style={{ width: 32 }} />
-                </ThemedView>
-            </GestureHandlerRootView>
+                            <ThemedView style={{ width: 32 }} />
+                        </ThemedView>
+                    </GestureHandlerRootView>
+                </SafeAreaView>
+            </SafeAreaProvider>
         </>
     );
 }

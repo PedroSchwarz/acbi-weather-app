@@ -1,5 +1,6 @@
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { useThemeColor } from '@/hooks/useThemeColor';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Divider, RadioButton } from 'react-native-paper';
@@ -12,15 +13,17 @@ type SettingsOptionProps = {
 };
 
 export default function SettingsOption({ title, value, options, onChange }: SettingsOptionProps) {
+    const accent = useThemeColor({}, 'accent');
+
     return (
         <ThemedView style={{ marginVertical: 16 }}>
             <ThemedText type='defaultSemiBold'>{title}</ThemedText>
             <ThemedView style={styles.row}>
                 {options.map((option) => (
                     <ThemedView style={styles.row} key={option}>
-                        <ThemedText>{option}</ThemedText>
+                        <ThemedText type='body'>{option}</ThemedText>
                         <RadioButton.Android
-                            color='#007AFF'
+                            color={accent}
                             value={option}
                             status={value === option ? 'checked' : 'unchecked'}
                             onPress={() => {

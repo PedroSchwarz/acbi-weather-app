@@ -1,5 +1,5 @@
 import { ThemedView } from '@/components/ThemedView';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import countriesJson from '../assets/data/countries/countries.json';
 import { SafeAreaView, SectionList, StyleSheet, TextInput } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
@@ -8,6 +8,8 @@ import CityItem from './components/CityItem';
 import { Stack, useNavigation } from 'expo-router';
 import { Button, Divider } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
+import { useThemeColor } from '@/hooks/useThemeColor';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 type Country = {
     country: string;
@@ -28,7 +30,11 @@ const CountryHeader: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 export default function CitiesListScreen() {
     const [countries, setCountries] = useState<Country[]>([]);
     const [search, setSearch] = useState<string | null>(null);
-    const [searchVisible, setSearchVisible] = useState<boolean>(true);
+    const [scrollOffset, setScrollOffset] = useState<number>(0);
+    const height = useSharedValue(70);
+    const background = useThemeColor({}, 'background');
+    const textColor = useThemeColor({}, 'text');
+    const accent = useThemeColor({}, 'accent');
     const navigation = useNavigation();
 
     useEffect(() => {
@@ -44,33 +50,45 @@ export default function CitiesListScreen() {
     }, [search]);
 
     const handleScroll = useCallback((event: any) => {
-        if (event.nativeEvent.contentOffset.y > 20 && searchVisible) {
-            setSearchVisible(false);
-        } else if (event.nativeEvent.contentOffset.y <= 20 && !searchVisible) {
-            setSearchVisible(true);
+        const newOffset = event.nativeEvent.contentOffset.y
+
+        if (newOffset > 20 && newOffset > scrollOffset) {
+            height.value = withTiming(0);
+            setScrollOffset(newOffset);
+        } else if (newOffset <= scrollOffset - 10) {
+            height.value = withTiming(70);
+            setScrollOffset(newOffset);
         }
-    }, [searchVisible]);
+    }, [scrollOffset]);
 
     const sections = countries.map(country => ({
         title: country.country,
         data: country.cities
     }));
 
+    const animatedStyle = useAnimatedStyle(() => ({
+        height: withTiming(height.value)
+    }));
+
     return (
         <>
             <Stack.Screen options={{
                 title: 'Cities', headerRight: (_) => {
-                    return <Button onPress={() => navigation.goBack()}><ThemedText style={{ color: "blue" }}>Cancel</ThemedText></Button>
-                }
+                    return <Button onPress={() => navigation.goBack()}><ThemedText style={{ color: accent }}>Cancel</ThemedText></Button>
+                },
+                headerBackButtonDisplayMode: 'minimal',
+                headerTransparent: true,
             }} />
+
             <SafeAreaProvider>
-                <SafeAreaView style={styles.safeArea}>
-                    {searchVisible && (
+                <SafeAreaView style={{ flex: 1, backgroundColor: background }}>
+                    <Animated.View style={animatedStyle}>
                         <ThemedView style={styles.searchContainer}>
-                            <TextInput style={styles.searchField} onChangeText={setSearch} />
-                            <Ionicons name="search" size={20} color="blue" />
+                            <TextInput style={[styles.searchField, { borderBottomColor: textColor }]} onChangeText={setSearch} />
+                            <Ionicons name="search" size={20} color={accent} />
                         </ThemedView>
-                    )}
+                    </Animated.View>
+
                     <SectionList
                         onScroll={handleScroll}
                         sections={sections}
@@ -86,10 +104,7 @@ export default function CitiesListScreen() {
 }
 
 const styles = StyleSheet.create({
-    safeArea: {
-        flex: 1,
-        backgroundColor: 'white',
-    },
+    safeArea: { flex: 1 },
     searchContainer: {
         marginVertical: 16,
         paddingHorizontal: 16,
@@ -99,7 +114,6 @@ const styles = StyleSheet.create({
     },
     searchField: {
         flex: 1,
-        borderBottomColor: 'black',
         borderBottomWidth: 1,
         paddingVertical: 8,
         fontSize: 16,

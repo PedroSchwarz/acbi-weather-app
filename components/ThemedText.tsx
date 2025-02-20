@@ -8,7 +8,7 @@ import { TextSize } from '@/hooks/useLocalStorageSettings';
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
+  type?: 'default' | 'title' | 'body' | 'defaultSemiBold' | 'subtitle' | 'link';
 };
 
 export function ThemedText({
@@ -45,6 +45,10 @@ export function ThemedText({
 const styles = StyleSheet.create({
   default: {
     fontSize: 16,
+    lineHeight: 24,
+  },
+  body: {
+    fontSize: 18,
     lineHeight: 24,
   },
   defaultSemiBold: {

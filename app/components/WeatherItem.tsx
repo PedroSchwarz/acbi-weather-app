@@ -9,6 +9,7 @@ import { useSettings } from '@/contexts/SettingsContext';
 import { SoundEffect, TemperatureUnit } from '@/hooks/useLocalStorageSettings';
 import { ActivityIndicator } from 'react-native-paper';
 import { useActionSound } from '@/contexts/SoundContext';
+import { useThemeColor } from '@/hooks/useThemeColor';
 
 type WeatherItemProps = City & { onDelete: () => void };
 
@@ -16,6 +17,7 @@ const WeatherItem: React.FC<WeatherItemProps> = ({ name, country, onDelete }) =>
     const { settings: { temperatureUnit, soundEffect } } = useSettings();
     const { loading, temperature, weatherCondition, date, time } = useWeatherData(name, country);
     const actionSound = useActionSound();
+    const accent = useThemeColor({}, 'accent');
 
     const unit = useMemo(() => {
         return temperatureUnit === TemperatureUnit.Celsius ? '°C' : '°F';
@@ -24,7 +26,7 @@ const WeatherItem: React.FC<WeatherItemProps> = ({ name, country, onDelete }) =>
     if (loading) {
         return (
             <ThemedView style={styles.loadingContainer}>
-                <ActivityIndicator />
+                <ActivityIndicator color={accent} />
             </ThemedView>
         );
     }
@@ -44,7 +46,7 @@ const WeatherItem: React.FC<WeatherItemProps> = ({ name, country, onDelete }) =>
                         <ThemedText type='defaultSemiBold'>{name}</ThemedText>
                         <ThemedText>{`, ${country}`}</ThemedText>
                     </ThemedView>
-                    <ThemedText type='title'>{time}</ThemedText>
+                    <ThemedText type='subtitle'>{time}</ThemedText>
                     <ThemedText>{date}</ThemedText>
                 </ThemedView>
 
@@ -60,7 +62,7 @@ const WeatherItem: React.FC<WeatherItemProps> = ({ name, country, onDelete }) =>
     );
 }
 
-const GAP_SIZE = 10;
+const GAP_SIZE = 16;
 const IMAGE_SIZE = 30;
 
 const columnBase: ViewStyle = { flexDirection: 'column', gap: GAP_SIZE };

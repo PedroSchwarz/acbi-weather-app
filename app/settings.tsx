@@ -10,16 +10,20 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { ThemedText } from '@/components/ThemedText';
 import { Button } from 'react-native-paper';
 import AppInformationBlock from './components/AppInformationBlock';
+import { useThemeColor } from '@/hooks/useThemeColor';
 
 export default function SettingsScreen() {
     const { settings, changeSetting, resetSettings } = useSettings();
+    const accent = useThemeColor({}, 'accent');
 
     return (
         <>
             <Stack.Screen options={{
                 title: 'Settings', headerRight: () => {
-                    return <Button onPress={resetSettings}><ThemedText style={{ color: "blue" }}>Reset</ThemedText></Button>
-                }
+                    return <Button onPress={resetSettings}><ThemedText style={{ color: accent }}>Reset</ThemedText></Button>
+                },
+                headerBackButtonDisplayMode: 'minimal',
+                headerTransparent: true,
             }} />
             <ThemedView style={styles.container}>
                 <SafeAreaProvider>

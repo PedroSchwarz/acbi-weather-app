@@ -35,7 +35,7 @@ export default function AppInformationBlock() {
     }, []);
 
     return (
-        <ThemedView style={{ gap: 20 }}>
+        <ThemedView style={{ marginTop: 40, gap: 20 }}>
             <ThemedText type="subtitle">Weather Time</ThemedText>
             <ThemedText>(c) {currentYear} ABC Solutions Pty Ltd</ThemedText>
             <ThemedText>Version: {version}</ThemedText>
