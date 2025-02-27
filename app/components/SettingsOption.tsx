@@ -17,7 +17,7 @@ export default function SettingsOption({ title, value, options, onChange }: Sett
 
     return (
         <ThemedView style={{ marginVertical: 16 }}>
-            <ThemedText type='defaultSemiBold'>{title}</ThemedText>
+            <ThemedText type='defaultSemiBold' style={{ marginBottom: 8 }}>{title}</ThemedText>
             <ThemedView style={styles.row}>
                 {options.map((option) => (
                     <ThemedView style={styles.row} key={option}>

@@ -15,6 +15,7 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 export default function SettingsScreen() {
     const { settings, changeSetting, resetSettings } = useSettings();
     const accent = useThemeColor({}, 'accent');
+    const background = useThemeColor({}, 'background');
 
     return (
         <>
@@ -22,8 +23,10 @@ export default function SettingsScreen() {
                 title: 'Settings', headerRight: () => {
                     return <Button onPress={resetSettings}><ThemedText style={{ color: accent }}>Reset</ThemedText></Button>
                 },
+                headerTitleAlign: 'center',
                 headerBackButtonDisplayMode: 'minimal',
-                headerTransparent: true,
+                headerStyle: { backgroundColor: background },
+                headerShadowVisible: false,
             }} />
             <ThemedView style={styles.container}>
                 <SafeAreaProvider>

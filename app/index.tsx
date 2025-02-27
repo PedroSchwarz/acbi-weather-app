@@ -31,6 +31,7 @@ export default function WeatherListScreen() {
                 options={{
                     headerShown: !isLandscape,
                     title: 'Weather',
+                    headerTitleAlign: 'center',
                     headerRight: () => (
                         <Pressable onPress={() => router.push('/citiesList')}>
                             <Ionicons name="add" size={24} color={accent} />
@@ -41,7 +42,8 @@ export default function WeatherListScreen() {
                             <Ionicons name="cog" size={24} color={accent} />
                         </Pressable>
                     ),
-                    headerTransparent: true,
+                    headerStyle: { backgroundColor: background },
+                    headerShadowVisible: false,
                 }}
             />
 

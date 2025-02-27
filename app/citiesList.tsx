@@ -37,9 +37,7 @@ export default function CitiesListScreen() {
     const accent = useThemeColor({}, 'accent');
     const navigation = useNavigation();
 
-    useEffect(() => {
-        setCountries(countriesJson);
-    }, []);
+    useEffect(() => { setCountries(countriesJson); }, []);
 
     useEffect(() => {
         if (search) {
@@ -66,9 +64,7 @@ export default function CitiesListScreen() {
         data: country.cities
     }));
 
-    const animatedStyle = useAnimatedStyle(() => ({
-        height: withTiming(height.value)
-    }));
+    const animatedStyle = useAnimatedStyle(() => ({ height: withTiming(height.value) }));
 
     return (
         <>
@@ -76,8 +72,10 @@ export default function CitiesListScreen() {
                 title: 'Cities', headerRight: (_) => {
                     return <Button onPress={() => navigation.goBack()}><ThemedText style={{ color: accent }}>Cancel</ThemedText></Button>
                 },
+                headerTitleAlign: 'center',
                 headerBackButtonDisplayMode: 'minimal',
-                headerTransparent: true,
+                headerStyle: { backgroundColor: background },
+                headerShadowVisible: false,
             }} />
 
             <SafeAreaProvider>
