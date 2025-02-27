@@ -1,7 +1,6 @@
 import { ThemedView } from '@/components/ThemedView';
-import { Stack, useRouter, } from 'expo-router';
 import React, { useEffect, useMemo, useState } from 'react';
-import { StyleSheet, FlatList, Pressable, TouchableOpacity } from 'react-native';
+import { StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { City } from './citiesList';
 import WeatherItem from './components/WeatherItem';
 import { Button, Divider } from 'react-native-paper';
@@ -10,9 +9,10 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 import { ThemedText } from '@/components/ThemedText';
 import { Orientation, useDeviceOrientation } from '@/hooks/useDeviceOrientation';
-import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { useNavigation } from '@react-navigation/native';
+import { useRouter } from 'expo-router';
 
 export default function WeatherListScreen() {
     const { checkedItems, toggleItem } = useCities();
@@ -33,14 +33,20 @@ export default function WeatherListScreen() {
             title: 'Weather',
             headerTitleAlign: 'center',
             headerRight: () => (
-                <TouchableOpacity onPress={() => router.push('/citiesList')}>
-                    <Ionicons name="add" size={24} color={accent} />
-                </TouchableOpacity>
+                // <TouchableOpacity onPress={() => router.push('/citiesList')}>
+                //     <Ionicons name="add" size={24} color={accent} />
+                // </TouchableOpacity>
+                <Button contentStyle={{ backgroundColor: background }} mode="text" onPress={() => router.push('/citiesList')}>
+                    <ThemedText style={{ color: accent }}>Add City</ThemedText>
+                </Button>
             ),
             headerLeft: () => (
-                <TouchableOpacity onPress={() => router.push('/settings')}>
-                    <Ionicons name="cog" size={24} color={accent} />
-                </TouchableOpacity>
+                // <TouchableOpacity onPress={() => router.push('/settings')}>
+                //     <Ionicons name="cog" size={24} color={accent} />
+                // </TouchableOpacity>
+                <Button contentStyle={{ backgroundColor: background }} mode="text" onPress={() => router.push('/settings')}>
+                    <ThemedText style={{ color: accent }}>Settings</ThemedText>
+                </Button>
             ),
             headerStyle: { backgroundColor: background },
             headerShadowVisible: false,
