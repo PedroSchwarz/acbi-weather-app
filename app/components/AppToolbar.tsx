@@ -17,7 +17,7 @@ export default function AppToolbar({ title, leading, trailing }: AppToolBarProps
         <ThemedView style={{ paddingTop: top, paddingBottom: 16, paddingHorizontal: 16, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
             {leading && leading}
             {!leading && <ThemedView />}
-            <ThemedText>
+            <ThemedText type="defaultSemiBold">
                 {title}
             </ThemedText>
             {trailing && trailing}
