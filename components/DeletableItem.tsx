@@ -13,6 +13,7 @@ const DeletableItem: React.FC<DeletableItemProps> = ({ children, onDelete }) => 
     const translateX = useSharedValue(0);
 
     const panGesture = Gesture.Pan()
+        .activateAfterLongPress(150)
         .onUpdate((event) => {
             translateX.value = event.translationX < 0 ? event.translationX : 0;
         })

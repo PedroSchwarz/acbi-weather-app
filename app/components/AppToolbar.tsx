@@ -1,7 +1,6 @@
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { PropsWithChildren } from "react";
-import { Dimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type AppToolBarProps = PropsWithChildren & {

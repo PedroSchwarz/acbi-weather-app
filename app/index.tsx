@@ -21,7 +21,6 @@ export default function WeatherListScreen() {
     const background = useThemeColor({}, 'background');
     const accent = useThemeColor({}, 'accent');
     const router = useRouter();
-    const { top } = useSafeAreaInsets();
 
     useEffect(() => { setCities(Object.values(checkedItems)) }, [checkedItems]);
 
