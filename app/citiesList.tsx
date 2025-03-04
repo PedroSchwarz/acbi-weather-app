@@ -69,7 +69,8 @@ export default function CitiesListScreen() {
     return (
         <>
             <Stack.Screen options={{
-                title: 'Cities', headerRight: (_) => {
+                title: 'Cities',
+                headerRight: (_) => {
                     return <Button onPress={() => navigation.goBack()}><ThemedText style={{ color: accent }}>Cancel</ThemedText></Button>
                 },
                 headerTitleAlign: 'center',

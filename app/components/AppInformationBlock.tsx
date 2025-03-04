@@ -41,7 +41,7 @@ export default function AppInformationBlock() {
             <ThemedText>Version: {version}</ThemedText>
             <ThemedText>Last Update: {lastUpdate}</ThemedText>
             <ThemedText>Build Date: {installationDate}</ThemedText>
-            <ThemedText>Developer: Pedro Schwarz</ThemedText>
+            <ThemedText>Developer: Pedro, João & Heric</ThemedText>
             <ThemedText>Student Number: ACBI20240269</ThemedText>
         </ThemedView>
     );
