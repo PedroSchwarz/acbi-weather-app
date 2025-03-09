@@ -43,6 +43,10 @@ export default function AppInformationBlock() {
             <ThemedText>Build Date: {installationDate}</ThemedText>
             <ThemedText>Developer: Pedro, João & Heric</ThemedText>
             <ThemedText>Student Number: ACBI20240269</ThemedText>
+            <ThemedText>
+                Thank you for purchasing Weather Time. If you have any issues or feedback, please contact: 1800 123 456.
+                Data provided by WeatherAPI. Best efforts are taken to ensure accuracy of the data, but no guarantees are made. To view the official data, please visit the website of WeatherAPI
+            </ThemedText>
         </ThemedView>
     );
 }

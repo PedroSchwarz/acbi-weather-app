@@ -83,7 +83,7 @@ export default function CitiesListScreen() {
                 <SafeAreaView style={{ flex: 1, backgroundColor: background }}>
                     <Animated.View style={animatedStyle}>
                         <ThemedView style={styles.searchContainer}>
-                            <TextInput style={[styles.searchField, { borderBottomColor: textColor }]} onChangeText={setSearch} />
+                            <TextInput style={[styles.searchField, { color: textColor, borderBottomColor: textColor }]} onChangeText={setSearch} />
                             <Ionicons name="search" size={20} color={accent} />
                         </ThemedView>
                     </Animated.View>

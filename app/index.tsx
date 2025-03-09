@@ -9,7 +9,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 import { ThemedText } from '@/components/ThemedText';
 import { Orientation, useDeviceOrientation } from '@/hooks/useDeviceOrientation';
-import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { Href, Stack, useRouter } from 'expo-router';
 import AppToolbar from './components/AppToolbar';
@@ -80,6 +80,7 @@ export default function WeatherListScreen() {
                                 )
                             }
                             <FlatList
+                                style={{ flex: 1 }}
                                 data={cities}
                                 renderItem={renderWeatherItem}
                                 keyExtractor={(item, index) => item.name + index}
@@ -105,7 +106,7 @@ export default function WeatherListScreen() {
 const styles = StyleSheet.create({
     container: { flex: 1 },
     landscapeContainer: { flex: 1, flexDirection: 'row' },
-    landscapeHeader: { flex: 1, flexBasis: '20%', alignItems: 'center', justifyContent: 'center', gap: 20 },
+    landscapeHeader: { flexBasis: '20%', alignItems: 'center', justifyContent: 'center', gap: 20 },
     emptyContentContainer: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 20, padding: 20 },
     emptyContentText: { textAlign: 'center' },
 });

@@ -33,16 +33,21 @@ const DEFAULT_SETTINGS: Settings = {
 
 export const useLocalStorageSettings = () => {
     const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         const loadSettings = async () => {
+            setLoading(true);
             try {
+                await new Promise(resolve => setTimeout(resolve, 500));
                 const storedSettings = await AsyncStorage.getItem(STORAGE_KEY) ?? JSON.stringify(DEFAULT_SETTINGS);
                 if (storedSettings) {
                     setSettings(JSON.parse(storedSettings));
                 }
             } catch (error) {
                 console.error('Error loading settings:', error);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -50,25 +55,33 @@ export const useLocalStorageSettings = () => {
     }, []);
 
     const changeSetting = async <K extends keyof Settings>(key: K, value: Settings[K]) => {
+        setLoading(true);
         try {
+            await new Promise(resolve => setTimeout(resolve, 500));
             const updatedSettings = { ...settings, [key]: value };
-            setSettings(updatedSettings);
             await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updatedSettings));
+            setSettings(updatedSettings);
         } catch (error) {
             console.error('Error saving settings:', error);
+        } finally {
+            setLoading(false);
         }
     };
 
     const resetSettings = async () => {
+        setLoading(true);
         try {
-            setSettings(DEFAULT_SETTINGS);
+            await new Promise(resolve => setTimeout(resolve, 500));
             await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_SETTINGS));
         } catch (error) {
             console.error('Error resetting settings:', error);
+        } finally {
+            setSettings(DEFAULT_SETTINGS);
+            setLoading(false);
         }
     }
 
-    return { settings, changeSetting, resetSettings };
+    return { settings, changeSetting, resetSettings, loading };
 };
 
 export { Settings, TemperatureUnit, SoundEffect, TextSize };

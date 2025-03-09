@@ -8,17 +8,36 @@ import { SoundEffect, TemperatureUnit, TextSize } from '@/hooks/useLocalStorageS
 import BrightnessOption from './components/BrightnessOption';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { ThemedText } from '@/components/ThemedText';
-import { Button } from 'react-native-paper';
+import { ActivityIndicator, Button, ProgressBar } from 'react-native-paper';
 import AppInformationBlock from './components/AppInformationBlock';
 import { useThemeColor } from '@/hooks/useThemeColor';
 
 export default function SettingsScreen() {
-    const { settings, changeSetting, resetSettings } = useSettings();
+    const { settings, changeSetting, resetSettings, loading } = useSettings();
     const accent = useThemeColor({}, 'accent');
     const background = useThemeColor({}, 'background');
 
     return (
         <>
+            {
+                loading &&
+                <ThemedView
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        justifyContent: 'center',
+                        backgroundColor: "black",
+                        opacity: 0.9,
+                        zIndex: 100,
+                    }}
+                >
+                    <ActivityIndicator />
+                </ThemedView>
+            }
+
             <Stack.Screen options={{
                 title: 'Settings', headerRight: () => {
                     return <Button onPress={resetSettings}><ThemedText style={{ color: accent }}>Reset</ThemedText></Button>

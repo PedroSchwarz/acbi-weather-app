@@ -4,6 +4,7 @@ import { Settings, useLocalStorageSettings } from '@/hooks/useLocalStorageSettin
 
 type SettingsContextType = {
     settings: Settings;
+    loading: boolean;
     changeSetting: <K extends keyof Settings>(key: K, value: Settings[K]) => Promise<void>;
     resetSettings: () => Promise<void>;
 };
